@@ -1,0 +1,287 @@
+<script type="text/javascript">
+	
+	function informacion (coordenadas) {
+		$("#localizacion_latitud").val(coordenadas.Lat);
+		$("#localizacion_longitud").val(coordenadas.Lng);
+		$( "#actualiza_mapa" ).trigger( "click" );
+	}
+	
+	function iniciar() {
+		
+		var coordenadas = {
+			Lat: 0,
+			Lng: 0
+		};
+		
+		function localizacion (posicion) {
+			coordenadas = {
+				Lat: posicion.coords.latitude,
+				Lng: posicion.coords.longitude
+			}
+			
+			informacion(coordenadas);
+			
+			/*var mapOptions = {
+				zoom: 16,
+				center: new google.maps.LatLng(coordenadas.Lat, coordenadas.Lng),
+				disableDefaultUI: true,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+			
+			var map = new google.maps.Map(document.getElementById('mapa'), mapOptions);
+			
+			var infowindow = new google.maps.InfoWindow({
+				map: map,
+				position: new google.maps.LatLng(coordenadas.Lat, coordenadas.Lng),
+				content: 'Tu ubicación (geolocation) usando HTML5 y Google Maps.'
+            });*/
+		}
+		
+		function errores (error) {
+			alert('Ha ocurrido un error al intentar obtener la información');
+		}
+		
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(localizacion,errores);
+		} else {
+			alert("Tu navegador no soporta o no tiene habilitada la 'Geolocalización'");
+		}
+		
+	}
+	
+    
+    $(function() {
+   
+
+		$("#mi_ubicacion").bind("click", function() {
+			iniciar();
+			$('#ubicacion_actual').show();
+			$('#ubicacion_seleccionada').hide();
+			$('#zoon_mapa').val('11');
+			
+			});
+    
+      });    
+    
+    </script>
+
+
+<?php
+$title = 'Nueva Empresa';
+$this->headTitle($title);
+?>
+
+<!-- Header contenido (Encabezado de página) -->
+<section class="content-header">
+	<h1>
+        <?php echo $this->escapeHtml($title); ?>
+       
+	</h1>
+</section>
+
+
+<!-- Contenido principal -->
+<section class="content">
+
+
+
+	<!-- Form Name -->
+
+	<div class="box box-primary" style="padding: 10px">
+
+		<form data-toggle="validator" class="form-horizontal" role="form"
+			method="post">
+			<fieldset>
+				<legend> </legend>
+
+				
+
+				<div class="box-body" style="background-color: transparent;">
+					
+					
+					<div class="form-group">
+						<label for="categoria" class="col-sm-4 control-label">Categoria</label>
+						<div class="col-sm-4">
+							 <select name="categoria_id" id="categoria_id" class="form-control"   
+							 data-error="Por favor, Seleccione su Categoria" required>  
+                                     <?php echo $this->cbo_categorias; ?>
+                            </select>	
+						</div>
+						<div class="help-block with-errors"></div>
+					</div>
+					
+					
+					
+					<div class="form-group">
+						<label for="nombre" class="col-sm-4 control-label">Nombre</label>
+						<div class="col-sm-4">
+							<input type="text" placeholder="nombre" id='nombre' name='nombre'
+								class="form-control" data-error="Por favor, Ingrese su Nombre"
+								required>
+						</div>
+						<div class="help-block with-errors"></div>
+					</div>
+
+
+					
+					
+					<div class="form-group">
+						<label for="email" class="col-sm-4 control-label">Direccion</label>
+						<div class="col-sm-4">
+							<input type="text" placeholder="ingrese su direccion" id='direccion' name='direccion'
+								class="form-control"
+								data-error="Por favor, Ingrese la direccion" required>
+						</div>
+						<div class="help-block with-errors"></div>
+					</div>
+					
+					
+					
+					<div class="form-group">
+						<label for="email" class="col-sm-4 control-label">Localidad</label>
+						<div class="col-sm-4">
+							<input type="text" placeholder="guayaquil,quito......" id='direccion' name='direccion'
+								class="form-control"
+								data-error="Por favor, Ingrese la localidad" required>
+						</div>
+						<div class="help-block with-errors"></div>
+					</div>
+					
+					
+					
+					
+					<div class="form-group">
+						<label for="telefono" class="col-sm-4 control-label">Telefono  Fijo</label>
+						<div class="col-sm-4">
+							<input type="text" pattern="^([0-9])+$" data-minlength="6"
+								maxlength="10" placeholder="telefono fijo" id='telefono_fijo'
+								name='telefono_fijo' class="form-control"
+								data-error="Por favor, Ingrese un telefono Fijo valido" required>
+						</div>
+						<div class="help-block with-errors"></div>
+					</div>
+
+					<div class="form-group">
+						<label for="telefono" class="col-sm-4 control-label">Movil</label>
+						<div class="col-sm-4">
+							<input type="text" pattern="^([0-9])+$" data-minlength="6"
+								maxlength="10" placeholder="telefono movil" id='telefono_fijo'
+								name='telefono_fijo' class="form-control"
+								data-error="Por favor, Ingrese un celular valido" required>
+						</div>
+						<div class="help-block with-errors"></div>
+					</div>
+
+
+					<div class="form-group">
+						<label for="email" class="col-sm-4 control-label">Email</label>
+						<div class="col-sm-4">
+							<input type="email" placeholder="email" id='email' name='email'
+								class="form-control"
+								data-error="Por favor, Ingrese un email valido" required>
+						</div>
+						<div class="help-block with-errors"></div>
+					</div>
+					
+					
+	
+			
+	  <div class="gllpLatlonPicker">
+		
+		<div class="form-group">
+		<div class="col-sm-4 control-label">
+		<input type="button" id='mi_ubicacion'  class="" value="My Localizacion" >
+		<input type="button" class="gllpSearchButton" value="Buscar">
+		</div>
+		<div class="col-sm-4">
+		 <input type="text" class="gllpSearchField form-control" placeholder="ecuador,guayaquil">
+		</div>
+		</div>
+
+	
+	    <div class="form-group">
+		<label for="mapa" class="col-sm-4 control-label"></label>
+		<div >
+		<div class="gllpMap " style="padding-left: 0;padding-right: 0">Google Maps</div>
+		</div>
+		</div>
+		
+		<div class="form-group">
+		                <div class="col-sm-4 control-label">
+						<input type="button" class="gllpUpdateButton " id='actualiza_mapa' value="update map">
+						</div>
+						
+						<div class="col-sm-4">
+							zoom: <input type="text" class="gllpZoom" value="6"  id='zoon_mapa'   style="width:40px"/>
+						</div>
+						
+	    </div>
+		
+		
+		
+		
+		
+		
+		
+		
+		<div class="form-group">
+						<label for="localizacion_latitud" class="col-sm-4 control-label">Latitud</label>
+						<div class="col-sm-4">
+							<input type="text" class="gllpLatitude form-control"  id='localizacion_latitud' value="-1.831239"/>
+						</div>
+						
+	    </div>
+		
+		
+		<div class="form-group">
+						<label for="localizacion_longitud" class="col-sm-4 control-label">Longitud</label>
+						<div class="col-sm-4">
+							<input type="text" class="gllpLongitude form-control" id='localizacion_longitud' value="-78.18340599999999"/>
+						</div>
+						
+	    </div>
+		
+		
+		
+		
+		
+			
+		
+		
+	</div>
+					
+					
+			
+				</div> <!-- / transparent -->
+
+				<div class="box-footer">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">&nbsp;</label>
+						<div class="col-sm-4" style="text-align: center">
+
+							<button type="submit" class="btn btn-primary  ">
+								<span class="glyphicon glyphicon-floppy-saved"></span> Guardar
+							</button>
+						</div>
+					</div>
+
+				</div>
+
+
+				
+
+			</fieldset>
+			
+			
+			
+			
+		</form>
+		 <?php if($this->existe_cuenta){ ?>
+    <div class="alert alert-danger">Ya exite una cuenta con este email <?php echo $this->existe_cuenta ?> </div>
+    <?php } ?>
+	</div>
+	<!-- /.box-body -->
+
+</section>
+
+

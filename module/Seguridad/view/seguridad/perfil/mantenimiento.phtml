@@ -1,0 +1,269 @@
+<?php
+
+/**
+ * @author Ing. Héctor Mero
+ * Opcion:	Mantenimiento Perfil
+ */
+$opcion_id = 37;
+?>
+<meta charset="UTF-8">
+<script type="text/javascript">
+	var contenedor_opcion_37 = "<?php echo($this->contenedor_opcion); ?>";
+	var ajax_process_37 = null;
+	var COL_grid_perfil_permisos_37_SELECCION	= 0;
+
+	$(function() {
+		InputData_UpperCaseAll();		
+		InputData_TrimAll();
+		InputData_KeyEnterDisabled();
+
+		$("#tabsPerfil_37").tabs();
+		$("#btn_addrow_grid_perfil_permisos_37, #btn_quitarrow_grid_perfil_permisos_37").button({
+			icons: {
+				primary: "ui-icon-arrowthick-1-w"
+			}
+		});
+		$("#btn_addrow_grid_perfil_permisos_37").on('click', function(event){	
+			var newData = [{"accion":"I", "id": 0, "dispositivo_id": 0, "accion_id": 0}];
+			$("#grid_perfil_permisos_37").addRowData('',newData);
+			return false;
+		});
+		$("#btn_quitarrow_grid_perfil_permisos_37").on('click', function(event){		   /*CON ESTO SOLUCIONAMOS PARA REALIZAR EL SUBMIT*/
+			var selr = $('#grid_perfil_permisos_37').jqGrid('getGridParam','selrow');
+
+			if( selr == null ) {
+				alert('Seleccione una fila');
+				return false;
+			}//end if
+
+			var accion = $('#grid_perfil_permisos_37').jqGrid('getCell', selr, 'accion');
+			$('#grid_perfil_permisos_37').jqGrid('editCell', selr, COL_grid_perfil_permisos_37_ACCION, false); //Se sale del modo edicion
+
+			if (accion == 'I'){
+				$('#grid_perfil_permisos_37').delRowData(selr);
+			}else{
+				var ret = jQuery("#grid_perfil_permisos_37").jqGrid('getRowData',id);
+				alert(ret.id);
+				$('#grid_perfil_permisos_37').jqGrid('setRowData', ret.id, false, {color:'red'});
+				$("#grid_perfil_permisos_37").jqGrid('setCell', ret.id, "accion", "E");
+			}//end if
+
+			return false;
+		});
+		$("#btn_grabar_37").on('click', function(event){		
+			if ($("#codigo_37").val()==''){
+				//INGRESAR
+				grabar_37('ingresar'); 
+			}else{
+				//MODIFICAR
+				grabar_37('modificar');
+			}//end if
+			return false;
+		});		
+		$("#btn_eliminar_37").on('click', function(event){   		
+			message_confirm('Confirme','¿Está Seguro de eliminar?','eliminar_37');
+			return false;
+		});
+		$("#btn_regresar_37").on('click', function(event){
+			cargador_visibility('show');
+			ajax_process_35 = $.ajax({
+										url: 'seguridad/perfil/listado',
+										data: {
+											"contenedor_opcion": contenedor_opcion_37
+										},			
+										cache: false,
+										beforeSend : function(){           
+											if (ajax_process_37) {
+												ajax_process_37.abort();
+											}	
+										},																					
+									}).done(function(msg) {
+										$("#"+contenedor_opcion_37).html(msg);				
+										cargador_visibility('hide');
+									}).error(function(request, status, error) {
+										message_error('ERROR', request.responseText);			
+										cargador_visibility('hide');
+									});			
+			return false;
+		});
+
+		jQuery("#grid_perfil_permisos_37").jqGrid({
+			url:'<?php echo($this->basePath()); ?>/seguridad/perfil/cargaperfilopcionaccionlistadodata',
+			postData: {
+				perfil_id: $("#codigo_37").val()
+			},
+			datatype: "json",
+		    loadonce: true,			
+		    colNames:['','','Dispositivo','Modulo','Opcion','Accion','','',''],
+			colModel:[
+				{name:'perfil_id',index:'perfil_id',editable:false,hidden: true},
+				{name:'opcion_accion_id',index:'opcion_accion_id',key:true,editable:false,hidden: true,sorttype:'int'},
+				{name:'dispositivo',index:'dispositivo', editable:false },
+				{name:'modulo',index:'modulo', editable:false },
+				{name:'opcion',index:'opcion', width:350, editable:false },
+				{name:'accion',index:'accion', width:400, editable:false },
+				{name:'tipo_accion',index:'tipo_accion', width:50, align:"center",editable:true, hidden: true},
+				{name:'orden_modulo',index:'orden_modulo', editable:false,hidden: true,sorttype:'int' },
+				{name:'orden_opcion',index:'orden_opcion', editable:false,hidden: true,sorttype:'int' }
+			],
+           	rowNum:999999999,
+           	pager: '#pager_perfil_permisos_37',
+			toppager:false,
+			pgbuttons:false,
+			pginput:false,
+			rowList:false,
+			multiselect: true,
+			multiSort:true,
+			sortname: 'orden_modulo, orden_opcion',
+			sortorder: 'asc',
+			jsonReader: {
+				repeatitems : false,
+			},		
+           	onSelectRow: function (rowid,status,e) {
+				if(status){
+					$("#grid_perfil_permisos_37").jqGrid('setCell', rowid, "tipo_accion", "I");
+				}
+				else{
+					$("#grid_perfil_permisos_37").jqGrid('setCell', rowid, "tipo_accion", "C");
+				}
+			},
+			loadComplete: function(data) {
+		        if (data.rows.length > 0) {
+		            for (var i = 0; i < data.rows.length; i++) {
+			            if (data.rows[i].tipo_accion == 'I') {
+			            	jQuery("#grid_perfil_permisos_37").setSelection(data.rows[i].opcion_accion_id, true);
+		                }
+		            }
+		        }
+		    },        	
+			loadError: function (jqXHR, textStatus, errorThrown) {
+				message_error('ERROR','HTTP message body (jqXHR.responseText): ' + '<br>' + jqXHR.responseText);
+			}/*,
+			grouping: true,
+		   	groupingView : {
+		   		groupField : ['dispositivo','modulo','opcion'],
+		   		groupColumnShow : [false, false, true],
+		   		groupText : ['<b>{0}</b>','<b>{0}</b>','<b>{0}</b>'],
+		   		groupCollapse : false,
+		   		groupDataSorted : [false,false,false],
+	            groupSorted: [false,false,false]	              
+		   	}*/
+        });
+		
+		jQuery("#grid_perfil_permisos_37").jqGrid('navGrid','#pager_perfil_permisos_37',{edit:false,add:false,del:false});			
+		jQuery("#grid_perfil_permisos_37").jqGrid('filterToolbar', {stringResult: true, searchOnEnter: false});
+	});
+
+	function validaControles_37(){
+		if (!ValidateControls("frm_37")){
+			return false;
+		}			
+		return true;
+	}//end function validaControles_37
+
+	function grabar_37(accion){		
+		switch (accion){
+			case 'ingresar':
+				id_opcion = 0;
+				break;
+			case 'modificar':
+				id_opcion = $("#codigo_37").val();
+				break;
+		}//end switch
+
+		if (!validaControles_37()) {
+			return false;
+		}//end if
+		cargador_visibility('show');
+		$('#grid_perfil_permisos_37').jqGrid('editCell', 1, jqgrid_get_columnIndexByName($("#grid_perfil_permisos_37"),"tipo_accion"), false);
+        var allData = {
+			    formData: $("#frm_37").serializeFormJSON(),
+			    gridPerfilOpcionAccionData: $('#grid_perfil_permisos_37').jqGrid('getGridParam','data')
+		};
+		
+		ajax_process_37 = $.ajax({
+				type: "POST",
+				url: 'seguridad/perfil/'+accion+'/'+id_opcion+'?contenedor_opcion='+contenedor_opcion_37,
+				contentType : 'application/json',
+				data: JSON.stringify(allData),
+				beforeSend : function(){
+										if (ajax_process_37) {
+											ajax_process_37.abort();
+										}
+									},
+									cache: false
+								}).done(function(msg) {
+									$("#"+contenedor_opcion_37).html(msg);  //Carga el HTML
+									message_info('Mensaje del Sistema',"Datos Grabados con éxito");
+									cargador_visibility('hide');
+								}).error(function(request, status, error) {
+									message_error('ERROR', request.responseText);
+									cargador_visibility('hide');
+								});	
+
+		return false;
+	}//end function grabar_37
+	
+</script>
+<form name="frm_37" id="frm_37" action="" method="post">
+	<?php
+
+echo $this->partial('toolbar/toolbar', array(
+    'opcion_id' => $opcion_id,
+    'permisos' => $this->permisos,
+    'activa_regresar' => true,
+    'habilitarAcciones' => $this->habilitarAcciones
+));
+?>
+	<div class="titulo1">
+		<?php
+$perfilActual_id = $this->PerfilData->getId();
+echo (empty($perfilActual_id) ? 'NUEVO PERFIL' : $this->PerfilData->getNombre());
+?>
+	</div>
+	<div id="tabsPerfil_37">
+		<ul>
+			<li><a href="#tabsPerfil_37-1">Datos del Perfil</a></li>
+			<li><a href="#tabsPerfil_37-2">Permisos del Perfil</a></li>
+		</ul>
+		<div id="tabsPerfil_37-1">
+			<table>
+				<tr>
+					<td class="etiqueta">Codigo:</td>
+					<td><input name="codigo_37" id="codigo_37" type="text" size="3"
+						class="input-text"
+						value="<?php echo($this->PerfilData->getId()); ?>" readonly /></td>
+				</tr>
+				<tr>
+					<td class="etiqueta">Nombre:</td>
+					<td><input name="nombre_37" id="nombre_37" type="text" size="40"
+						maxlength="100" class="input-text"
+						value="<?php echo($this->PerfilData->getNombre()); ?>"
+						validate="required" validateMessage="Ingrese un nombre del Perfil" />
+					</td>
+				</tr>
+				<tr>
+					<td class="etiqueta">Siglas:</td>
+					<td><input name="siglas_37" id="siglas_37" type="text" size="40"
+						maxlength="100" class="input-text"
+						value="<?php echo($this->PerfilData->getSiglas()); ?>"
+						validate="required"
+						validateMessage="Ingrese las siglas del Perfil" /></td>
+				</tr>
+				<tr>
+					<td class="etiqueta">Estado:</td>
+					<td><select name="estado_37" id="estado_37" class="select">
+							<?php echo($this->cboEstado); ?>
+					</select></td>
+				</tr>
+			</table>
+		</div>
+		<div id="tabsPerfil_37-2">
+			<br />
+			<!--  <button id="btn_addrow_grid_perfil_permisos_37">Adicionar</button>
+			<button id="btn_quitarrow_grid_perfil_permisos_37">Quitar</button>-->
+			<table id="grid_perfil_permisos_37" class="grid"></table>
+			<div id="pager_perfil_permisos_37"></div>
+		</div>
+	</div>
+</form>

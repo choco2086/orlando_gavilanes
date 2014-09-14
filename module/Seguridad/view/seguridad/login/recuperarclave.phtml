@@ -1,0 +1,74 @@
+<!-- Contenido principal -->
+<section class="content">
+
+	<!-- Form Name -->
+
+	<div class="box box-primary" style="padding: 10px">
+
+		<form data-toggle="validator" class="form-horizontal" role="form"
+			method="post">
+			<fieldset>
+				<legend>Recupera tu Clave </legend>
+				<div class="box-body" style="background-color: transparent;">
+					<div class="form-group">
+						<label for="email" class="col-sm-4 control-label">Email</label>
+						<div class="col-sm-4">
+							<input type="email" placeholder="email" id='email' name='email'
+								class="form-control"
+								data-error="Por favor, Ingrese el  email de tu cuenta" required>
+						</div>
+						<div class="help-block with-errors"></div>
+					</div>
+				</div>
+				<!-- / transparent -->
+
+
+				<div class="box-footer">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">&nbsp;</label>
+						<div class="col-sm-4" style="text-align: center">
+
+							<button type="submit" class="btn btn-primary  ">
+								<span class="glyphicon glyphicon-envelope"></span> Enviar
+							</button>
+						</div>
+					</div>
+
+				</div>
+
+
+
+			</fieldset>
+		</form>
+	<?php if($this->existe_cuenta ){ ?>
+    <?php if($this->cambio_clave==1 ){ ?>
+    <div class="alert alert-success">Se envio tu clave de ingreso a este  email <?php echo $this->existe_cuenta ?> </div>
+    <?php }else{ ?>
+    <div class="alert alert-danger">No existe una cuenta creada con este  email <?php echo $this->existe_cuenta ?> </div>
+     <?php } }?>
+	</div>
+	<!-- /.box-body -->
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

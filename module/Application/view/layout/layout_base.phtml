@@ -1,0 +1,67 @@
+<!--<!DOCTYPE html>-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> UGKAMARI.EDU.EC  </title>
+        <?php        
+            echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')?>
+        
+        <!-- Le styles -->
+        <?php        
+            echo $this->headLink(array(
+                'rel' => 'shortcut icon',
+                'type' => 'image/vnd.microsoft.icon',
+                'href' => $this->basePath() . '/img/favicon.ico'
+            ))
+            ->prependStylesheet($this->basePath() . '/css/style_sys.css')
+            ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+            ->prependStylesheet($this->basePath() . '/AdminLTE-master/css/font-awesome.min.css')
+            ->prependStylesheet($this->basePath() . '/AdminLTE-master/css/ionicons.min.css')
+            ->prependStylesheet($this->basePath() . '/AdminLTE-master/css/morris/morris.css')
+            ->prependStylesheet($this->basePath() . '/AdminLTE-master/css/AdminLTE.css')
+        ?> 
+     </head>
+    
+    <body class="skin-blue">
+    
+    
+     <!-- HEADER -->
+        <?php include 'header_base.phtml'; ?>
+        
+    
+       <div class="container">
+            <?php echo $this->content; ?>
+           
+	</div>
+     <?php include 'footer.phtml'; ?>
+  
+        
+        
+        <!-- Bootstrap core JavaScript ================================================== -->       
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js"></script>  
+        <!--<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>-->
+
+        
+    
+
+        <!-- Scripts -->
+        <?php        
+        echo $this->headScript()
+                
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                
+            //->prependFile($this->basePath() . '/js/geolocation/google-mapv3.js')          
+           // ->prependFile('http://maps.google.com/maps/api/js?sensor=false')
+            ->prependFile($this->basePath() . '/js/validator/validator.min.js')
+            ->prependFile($this->basePath() . '/AdminLTE-master/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')            
+            ->prependFile($this->basePath() . '/AdminLTE-master/js/AdminLTE/app.js')
+          //  ->prependFile($this->basePath() . '/AdminLTE-master/js/AdminLTE/demo.js')             
+        ?>
+      
+       
+    </body>
+</html>
