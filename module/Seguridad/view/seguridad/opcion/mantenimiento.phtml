@@ -1,0 +1,330 @@
+<?php
+
+/**
+ * @author Ing. Héctor Mero
+ * Opcion:	Mantenimiento Opcion
+ */
+$opcion_id = 36;
+?>
+<meta charset="UTF-8">
+<script type="text/javascript">
+	var contenedor_opcion_36 = "<?php echo($this->contenedor_opcion); ?>";
+	var ajax_process_36 = null;
+	var COL_GRID_OPCION_ACCION_36_ACCION 		= 0;
+	var COL_GRID_OPCION_ACCION_36_CODIGO	 	= 1;
+	var COL_GRID_OPCION_ACCION_36_DISPOSITIVO 	= 2;
+	var COL_GRID_OPCION_ACCION_36_ACCION_OPCION	= 3;
+
+	$(function() {
+		var dispositivo_36 = $.ajax({
+			url: 'seguridad/dispositivo/getComboDispositivoDataGrid',
+			async: false, 
+			success: function(data, result) {
+				if (!result) message_error('ERROR', 'Error al cargar combo de Dispositivos');
+			}
+		}).responseText;
+		var accion_36 = $.ajax({
+			url: 'seguridad/accion/getComboAccionDataGrid',
+			async: false, 
+			success: function(data, result) {
+				if (!result) message_error('ERROR', 'Error al cargar combo de Acciones');
+			}
+		}).responseText;
+		
+		InputData_UpperCaseAll();		
+		InputData_TrimAll();
+		InputData_KeyEnterDisabled();
+
+		$("#tabsOpcion_36").tabs();
+		$("#btn_addrow_grid_opcion_accion_36, #btn_quitarrow_grid_opcion_accion_36").button({
+			icons: {
+				primary: "ui-icon-arrowthick-1-w"
+			}
+		});
+		$("#btn_addrow_grid_opcion_accion_36").on('click', function(event){	
+			var newData = [{"accion":"I", "id": 0, "dispositivo_id": 0, "accion_id": 0}];
+			$("#grid_opcion_accion_36").addRowData('',newData);
+			return false;
+		});
+		$("#btn_quitarrow_grid_opcion_accion_36").on('click', function(event){		   /*CON ESTO SOLUCIONAMOS PARA REALIZAR EL SUBMIT*/
+			var selr = $('#grid_opcion_accion_36').jqGrid('getGridParam','selrow');
+
+			if( selr == null ) {
+				alert('Seleccione una fila');
+				return false;
+			}//end if
+
+			var accion = $('#grid_opcion_accion_36').jqGrid('getCell', selr, 'accion');
+			$('#grid_opcion_accion_36').jqGrid('editCell', selr, COL_GRID_OPCION_ACCION_36_ACCION, false); //Se sale del modo edicion
+
+			if (accion == 'I'){
+				$('#grid_opcion_accion_36').delRowData(selr);
+			}else{
+				var ret = jQuery("#grid_opcion_accion_36").jqGrid('getRowData',id);
+				alert(ret.id);
+				$('#grid_opcion_accion_36').jqGrid('setRowData', ret.id, false, {color:'red'});
+				$("#grid_opcion_accion_36").jqGrid('setCell', ret.id, "accion", "E");
+			}//end if
+
+			return false;
+		});
+		$("#btn_grabar_36").on('click', function(event){		
+			if ($("#codigo_36").val()==''){
+				//INGRESAR
+				grabar_36('ingresar'); 
+			}else{
+				//MODIFICAR
+				grabar_36('modificar');
+			}//end if
+			return false;
+		});		
+		$("#btn_eliminar_36").on('click', function(event){   		
+			message_confirm('Confirme','¿Está Seguro de eliminar?','eliminar_36');
+			return false;
+		});
+		$("#btn_regresar_36").on('click', function(event){
+			cargador_visibility('show');
+			ajax_process_35 = $.ajax({
+										url: 'seguridad/opcion/listado',
+										data: {
+											"contenedor_opcion": contenedor_opcion_36
+										},			
+										cache: false,
+										beforeSend : function(){           
+											if (ajax_process_36) {
+												ajax_process_36.abort();
+											}	
+										},																					
+									}).done(function(msg) {
+										$("#"+contenedor_opcion_36).html(msg);				
+										cargador_visibility('hide');
+									}).error(function(request, status, error) {
+										message_error('ERROR', request.responseText);			
+										cargador_visibility('hide');
+									});			
+			return false;
+		});
+		
+		jQuery("#grid_opcion_accion_36").jqGrid({
+			url:'<?php echo($this->basePath()); ?>/seguridad/opcion/cargaopcionaccionlistadodata',
+			postData: {
+				opcion_id: $("#codigo_36").val()
+			},
+			datatype: "json",
+			loadonce: true,
+			rowNum:999999999,
+			colNames:['','Codigo','Dispositivo','Accion'],
+			colModel:[
+				{name:'accion',index:'accion', width:50, align:"center", hidden: true},
+				{name:'id',index:'id', width:50,  key : true, align:"center", editable:false,sorttype:'int'},
+				{name:'dispositivo_id',index:'dispositivo_id', width:50, editable:true, edittype: "select", formatter:'select', editrules: { required: true }, editoptions: { value: dispositivo_36} },
+				{name:'accion_id',index:'accion_id', width:250, editable:true, edittype: "select", formatter:'select', editrules: { required: true }, editoptions: { value: accion_36} },
+			],
+			cmTemplate: {editable: true},
+			toppager:false,
+			//rowNum:10,
+		   	//rowList:[10,20,30],
+			height: '100%',
+			sortname: 'id',
+			viewrecords: true,
+			sortorder: "id",
+			forceFit : true,
+			cellEdit: true,
+			width: '550',
+			cellsubmit: 'clientArray',
+			editurl: 'clientArray',
+			onSelectRow: function (id) {
+				if (id && id !== lastsel3) {
+					$(this).jqGrid("restoreRow", lastsel3);
+					$(this).jqGrid("editRow", id, true);
+					lastsel3 = id;
+				}
+			},
+			jsonReader: {
+				repeatitems : false,
+			},
+			afterSaveCell : function(rowid,name,val,iRow,iCol) {
+				var accion = jQuery("#grid_opcion_accion_36").jqGrid('getCell',rowid, COL_GRID_OPCION_ACCION_36_ACCION);
+				if (accion=='C'){
+					$("#grid_opcion_accion_36").jqGrid('setCell', rowid, "accion", "M");
+				}//end if
+			},
+			loadComplete: function (data) {
+			},
+			loadError: function (jqXHR, textStatus, errorThrown) {
+				alert("Entro al error");
+				message_error('ERROR','HTTP message body (jqXHR.responseText): ' + '<br>' + jqXHR.responseText);
+			}
+		});
+		
+	});
+
+	function validaControles_36(){
+		if (!ValidateControls("frm_36")){
+			return false;
+		}			
+		if (!validaGridOpcionAccion_36()){
+			return false;
+		}
+		return true;
+	}//end function validaControles_36
+
+	function validaGridOpcionAccion_36(){
+		var dataGridOpcionAccion =  $('#grid_opcion_accion_36').jqGrid('getGridParam','data');
+		
+		for (var i=0; i < dataGridOpcionAccion.length; i++){
+			$('#grid_opcion_accion_36').jqGrid('editCell', i+1, COL_GRID_OPCION_ACCION_36_ACCION, false);
+			
+			if (dataGridOpcionAccion[i].dispositivo_id == ''){
+				$('#tabsOpcion_36').tabs("option", "active", 1);
+				alert('Ingrese el Dispositivo');
+				$('#grid_opcion_accion_36').focus();
+				$('#grid_opcion_accion_36').jqGrid('editCell', i+1, COL_GRID_OPCION_ACCION_36_DISPOSITIVO, true);
+				return false;
+			}//end if
+			if (dataGridOpcionAccion[i].accion_id == ''){
+				$('#tabsOpcion_36').tabs("option", "active", 1);
+				alert('Ingrese la accion de la opcion');
+				$('#grid_opcion_accion_36').focus();
+				$('#grid_opcion_accion_36').jqGrid('editCell', i+1, COL_GRID_OPCION_ACCION_36_ACCION_OPCION, true);
+				return false;
+			}//end if
+		}//end for
+		
+		return true;
+	}//end function validaGridOpcionAccion_36
+
+	function grabar_36(accion){
+		switch (accion){
+			case 'ingresar':
+				id_opcion = 0;
+				break;
+			case 'modificar':
+				id_opcion = $("#codigo_36").val();
+				break;
+		}//end switch
+
+		if (!validaControles_36()) {
+			return false;
+		}//end if
+		cargador_visibility('show');
+		
+		var allData = {
+			    formData: $("#frm_36").serializeFormJSON(),
+			    gridOpcionAccionData: $('#grid_opcion_accion_36').jqGrid('getGridParam','data')
+		};
+		
+		ajax_process_36 = $.ajax({
+				type: "POST",
+				url: 'seguridad/opcion/'+accion+'/'+id_opcion+'?contenedor_opcion='+contenedor_opcion_36,
+				contentType : 'application/json',
+				data: JSON.stringify(allData),
+				beforeSend : function(){
+										if (ajax_process_36) {
+											ajax_process_36.abort();
+										}
+									},
+									cache: false
+								}).done(function(msg) {
+									$("#"+contenedor_opcion_36).html(msg);  //Carga el HTML
+									message_info('Mensaje del Sistema',"Datos Grabados con éxito");
+									cargador_visibility('hide');
+								}).error(function(request, status, error) {
+									message_error('ERROR', request.responseText);
+									cargador_visibility('hide');
+								});	
+
+		return false;
+	}//end function grabar_36
+	
+</script>
+<form name="frm_36" id="frm_36" action="" method="post">
+	<?php
+
+echo $this->partial('toolbar/toolbar', array(
+    'opcion_id' => $opcion_id,
+    'permisos' => $this->permisos,
+    'activa_regresar' => true,
+    'habilitarAcciones' => $this->habilitarAcciones
+));
+?>
+	<div class="titulo1">
+		<?php
+$opcionActual_id = $this->OpcionData->getId();
+echo (empty($opcionActual_id) ? 'NUEVA OPCION' : $this->OpcionData->getNombre());
+?>
+	</div>
+	<div id="tabsOpcion_36">
+		<ul>
+			<li><a href="#tabsOpcion_36-1">Datos de la Opcion</a></li>
+			<li><a href="#tabsOpcion_36-2">Acciones de la Opcion</a></li>
+		</ul>
+		<div id="tabsOpcion_36-1">
+			<table>
+				<tr>
+					<td class="etiqueta">Codigo:</td>
+					<td><input name="codigo_36" id="codigo_36" type="text" size="3"
+						class="input-text"
+						value="<?php echo($this->OpcionData->getId()); ?>" readonly /></td>
+				</tr>
+				<tr>
+					<td class="etiqueta">Nombre:</td>
+					<td><input name="nombre_36" id="nombre_36" type="text" size="40"
+						maxlength="100" class="input-text"
+						value="<?php echo($this->OpcionData->getNombre()); ?>"
+						validate="required"
+						validateMessage="Ingrese un nombre de la Opcion" /></td>
+				</tr>
+				<tr>
+					<td class="etiqueta">Modulo al que pertenece:</td>
+					<td><select name="modulo_36" id="modulo_36" class="select">
+							<?php echo($this->cboModulo); ?>
+					</select>
+				
+				</tr>
+				<tr>
+					<td class="etiqueta">Tipo de opcion:</td>
+					<td><select name="tipo_opcion_36" id="tipo_opcion_36"
+						class="select">
+							<?php echo($this->cboTipoOpcion); ?>
+					</select></td>
+				</tr>
+				<tr>
+					<td class="etiqueta">Ruta de Acceso:</td>
+					<td><input name="url_acceso_36" id="url_acceso_36" type="text"
+						size="40" maxlength="100" class="input-text"
+						value="<?php echo($this->OpcionData->getUrlAcceso()); ?>"
+						validate="required"
+						validateMessage="Ingrese la URL de acceso de la opcion" /></td>
+				</tr>
+				<tr>
+					<td class="etiqueta">Logo:</td>
+					<td><input name="url_logo_36" id="url_logo_36" type="text"
+						size="40" maxlength="100" class="input-text"
+						value="<?php echo($this->OpcionData->getUrlLogo()); ?>" /></td>
+				</tr>
+				<tr>
+					<td class="etiqueta">Orden:</td>
+					<td><input name="nro_orden_36" id="nro_orden_36" type="text"
+						size="10" maxlength="10"
+						class="input-text inputdata-number-no-decimal"
+						value="<?php echo($this->OpcionData->getOrden()); ?>"
+						validate="required"
+						validatemessage="Ingrese el orden de la opcion" /></td>
+				</tr>
+				<tr>
+					<td class="etiqueta">Estado:</td>
+					<td><select name="estado_36" id="estado_36" class="select">
+							<?php echo($this->cboEstado); ?>
+					</select></td>
+				</tr>
+			</table>
+		</div>
+		<div id="tabsOpcion_36-2">
+			<br />
+			<button id="btn_addrow_grid_opcion_accion_36">Adicionar</button>
+			<button id="btn_quitarrow_grid_opcion_accion_36">Quitar</button>
+			<table id="grid_opcion_accion_36" class="grid"></table>
+		</div>
+	</div>
+</form>

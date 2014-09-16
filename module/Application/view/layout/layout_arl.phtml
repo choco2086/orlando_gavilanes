@@ -1,0 +1,66 @@
+<!--<!DOCTYPE html>-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> UGKAMARI.EDU.EC  </title>
+        <?php        
+            echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')?>
+        
+        <!-- Le styles -->
+        <?php        
+            echo $this->headLink(array(
+                'rel' => 'shortcut icon',
+                'type' => 'image/vnd.microsoft.icon',
+                'href' => $this->basePath() . '/img/favicon.ico'
+            ))
+            ->appendStylesheet($this->basePath() . '/css/style_sys.css')
+            ->appendStylesheet($this->basePath() . '/css/bootstrap.min.css')
+            ->appendStylesheet($this->basePath() . '/AdminLTE-master/css/ionicons.min.css')
+            ->appendStylesheet($this->basePath() . '/AdminLTE-master/css/AdminLTE.css')
+            ->prependStylesheet($this->basePath() . '/AdminLTE-master/css/font-awesome.min.css')
+            ->prependStylesheet($this->basePath() . '/AdminLTE-master/css/morris/morris.css')
+            
+        ?>
+        
+        
+         <!-- Scripts -->
+        <?php        
+        echo $this->headScript()                
+            ->appendFile($this->basePath() . '/js/jquery-ui-1.11.1/jquery-1.11.1.min.js')
+            ->appendFile($this->basePath() . '/js/bootstrap.min.js')                     
+            ->appendFile($this->basePath() . '/AdminLTE-master/js/AdminLTE/app.js')
+            ->appendFile($this->basePath() . '/AdminLTE-master/js/AdminLTE/demo.js')         
+        ?>
+         
+     </head>
+    
+    <body class="skin-blue">
+        
+        <!-- HEADER -->
+        <?php include 'header.phtml'; ?>
+    
+        <!-- CONTENIDO CENTRAL -->
+        <div class="wrapper row-offcanvas row-offcanvas-left" style="background-color: #f9f9f9;">
+            <!-- Columna de la parte izquierda  -->
+            <?php include 'panel.phtml'; ?>
+
+            <!-- La columna del lado derecho. Contenido de la página -->
+            <aside class="right-side">
+                <?php echo $this->content; ?>
+            </aside><!-- /.right-side -->
+            
+            <!-- FOOTER -->
+            <?php include 'footer.phtml'; ?>
+        </div><!-- ./wrapper -->
+    
+  
+      
+        <!-- SCRIPT PARA EL RANQUEO-->
+        <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/shieldui-all.min.css" />
+        <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+        <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+
+    </body>
+</html>
