@@ -1,0 +1,57 @@
+<?php
+$title = 'Add new User';
+$this->headTitle($title);
+?>
+
+
+<!-- Header contenido (Encabezado de página) -->
+<section class="content-header">
+    <h1>
+        <?php echo $this->escapeHtml($title); ?>
+        <small id="subtitle_header">Inicio</small>
+    </h1>
+</section>
+
+
+<!-- Contenido principal -->
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-12 ">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Quick Example</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form method="post">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Fullname</label>
+                            <input type="email" class="form-control" name="fullname"  id="fullname" placeholder="Fullname">
+                        </div>
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select name="estado" class="form-control">  
+                                     <?php echo $this->cbo_estado?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Categorias</label>
+                            <select name="categs" class="form-control">  
+                                     <?php echo $this->cbo_categorias; ?>
+                            </select>
+                        </div>
+                    </div><!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    
+                </form>
+            </div><!-- /.box -->
+
+        </div><!--/.col (right) -->
+    </div>   <!-- /.row -->
+</section><!-- /.content -->
+                

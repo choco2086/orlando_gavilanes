@@ -1,0 +1,270 @@
+<script type="text/javascript">
+	
+	function informacion (coordenadas) {
+		$("#localizacion_latitud").val(coordenadas.Lat);
+		$("#localizacion_longitud").val(coordenadas.Lng);
+		$( "#actualiza_mapa" ).trigger( "click" );
+	}
+	
+	function iniciar() {
+		
+		var coordenadas = {
+			Lat: 0,
+			Lng: 0
+		};
+		
+		function localizacion (posicion) {
+			coordenadas = {
+				Lat: posicion.coords.latitude,
+				Lng: posicion.coords.longitude
+			}
+			informacion(coordenadas);
+		}
+		
+		function errores (error) {
+			alert('Ha ocurrido un error al intentar obtener la información, ingresela ubicandola en el mapa');
+		}
+		
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(localizacion,errores);
+		} else {
+			alert("Tu navegador no soporta o no tiene habilitada la 'Geolocalización'");
+		}
+		
+	}
+	
+    
+    $(function() {
+   
+
+		$("#mi_ubicacion").bind("click", function() {
+			iniciar();
+			$('#ubicacion_actual').show();
+			$('#ubicacion_seleccionada').hide();
+			$('#zoon_mapa').val('12');
+			
+			});
+
+
+		
+		
+		$( "#localidad" ).change(function() {
+			 // alert( "Handler for .change() called." );
+			  $('#busqueda_negocio').val('ecuador,'+$("#localidad").val());
+				$('.gllpSearchButton').trigger( "click" );
+			});
+		
+    
+      });    
+    
+    </script>
+
+
+<?php
+$title = 'Nueva Empresa';
+$this->headTitle($title);
+?>
+
+<section class="content-header">
+
+	<div class="pageicon">
+		<span class="glyphicon glyphicon-tower"></span>
+	</div>
+	<div class="pagetitle">
+		<h5>Mi negocio</h5>
+		<h1>Datos</h1>
+	</div>
+</section>
+
+
+
+
+
+
+
+<section class="content">
+	<!-- Form Name -->
+
+	<form data-toggle="validator" class="form-horizontal" method="post">
+
+		<div class="box widgetcontent_blue">
+			<div class="box-header">
+				<h4 class="box-title">Para contacto y ubicacion</h4>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="panel panel-default">
+
+						<fieldset>
+							<legend class="text-center header">Contactame</legend>
+							<div class="form-group">
+								<div class="col-md-10 col-md-offset-1">
+									<input type="text" placeholder="nombre" id='nombre'
+										name='nombre' class="form-control"
+										value='<?php echo $this->NegocioData->getNombre() ?>'
+										data-error="Por favor, Ingrese un Nombre" required>
+								</div>
+								<div class="help-block with-errors col-md-10 col-md-offset-1"></div>
+								<div><input type="hidden"  id='codigo'
+										name='codigo' 
+										value='<?php echo $this->NegocioData->getId() ?>'
+										required></div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-10 col-md-offset-1">
+
+									<select name="categoria_id" id="categoria_id"
+										class="form-control"
+										data-error="Por favor, Seleccione su Categoria" required>  
+                                     <?php echo $this->cbo_categorias; ?>
+                              </select>
+								</div>
+								<div class="help-block with-errors col-md-10 col-md-offset-1"></div>
+								<div><input type="hidden"  id='concepto_negocio_id'
+										name='concepto_negocio_id' 
+										value='<?php echo $this->NegocioData->getConceptoNegocioId() ?>'
+										required></div>
+							</div>
+
+
+
+
+							<div class="form-group">
+								<div class="col-md-10 col-md-offset-1">
+									<input type="text" placeholder="localidad ejemp. guayaquil"
+										id='localidad' name='localidad' class="form-control"
+										value='<?php echo $this->NegocioData->getLocalidad() ?>'
+										data-error="Por favor, Ingrese su localidad ejemp guayaquil,quito,cuenca,daule,etc"
+										required>
+								</div>
+								<div class="help-block with-errors col-md-10 col-md-offset-1"></div>
+							</div>
+
+
+
+							<div class="form-group">
+								<div class="col-md-10 col-md-offset-1">
+									<input type="text" placeholder="ingrese su direccion"
+										id='direccion' name='direccion' class="form-control"
+										value='<?php echo $this->NegocioData->getDireccion() ?>'
+										data-error="Por favor, Ingrese la direccion" required>
+								</div>
+								<div class="help-block with-errors col-md-10 col-md-offset-1"></div>
+							</div>
+
+
+							<div class="form-group">
+								<div class="col-md-10 col-md-offset-1">
+									<input type="text" pattern="^([0-9])+$" data-minlength="6"
+										maxlength="10" placeholder="Telefono Movil"
+										id='telefono_movil' name='telefono_movil' class="form-control"
+										value='<?php echo $this->NegocioData->getTelefonoMovil() ?>'
+										data-error="Por favor, Ingrese un telefono movil valido que sea numerico"
+										required>
+								</div>
+								<div class="help-block with-errors col-md-10 col-md-offset-1"></div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-10 col-md-offset-1">
+									<input type="text" pattern="^([0-9])+$" data-minlength="6"
+										maxlength="10" placeholder="Telefono Fijo" id='telefono_fijo'
+										value='<?php echo $this->NegocioData->getTelefonoFijo() ?>'
+										name='telefono_fijo' class="form-control"
+										data-error="Por favor, Ingrese un telefono Fijo valido que sea numerico"
+										required>
+								</div>
+								<div class="help-block with-errors col-md-10 col-md-offset-1"></div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-12 text-center">
+									<button type="submit" class="btn btn-primary  ">
+										<span class="glyphicon glyphicon-floppy-saved"></span> Guardar
+									</button>
+								</div>
+							</div>
+						</fieldset>
+
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div>
+						<div class="panel panel-default">
+
+							<div class="panel-body text-center">
+								<div class="gllpLatlonPicker">
+									<div>
+										<div class="col-md-3 ">
+											<input type="button" id='mi_ubicacion'
+												class="btn btn-success" value="My Localizacion">
+										</div>
+										<div class="col-md-2 ">
+											<input type="button" class="gllpSearchButton btn btn-warning"
+												value="Buscar">
+										</div>
+										<div class="col-md-6 col-md-offset-1">
+											<input type="text" class="gllpSearchField form-control"
+												id='busqueda_negocio' placeholder="ecuador,guayaquil">
+										</div>
+										<div class="help-block with-errors col-md-10 col-md-offset-1"></div>
+									</div>
+
+
+									<div class="gllpMap col-md-10 col-md-offset-1"
+										style="padding-left: 0; padding-right: 0">Google Maps</div>
+									<div class="form-group">
+										<div class="help-block with-errors col-md-10 col-md-offset-1"></div>
+										<label class="col-md-2  control-label">zoom:</label>
+										<div class="col-md-2 col-md-offset-1">
+											<input style="width: 51px;" type="text" class="gllpZoom "
+												value="12" id='zoon_mapa' />
+										</div>
+										<div class="col-md-6 col-md-offset-1">
+											<input type="button" class="gllpUpdateButton btn btn-info "
+												style="height: 27px; padding-bottom: 0px; padding-top: 0px; border-bottom-width: 0px;"
+												id='actualiza_mapa' value="update mapa">
+										</div>
+									</div>
+
+
+
+
+									<div class="form-group">
+										<label class="col-md-2  control-label">Latitud</label>
+										<div class="col-md-8 col-md-offset-1">
+											<input type="text" class="gllpLatitude form-control" readonly
+												id='localizacion_latitud' name='localizacion_latitud'
+												value='<?php echo $this->NegocioData->getLocalizacionLatitud() ?>'
+												 />
+										</div>
+
+									</div>
+
+									<div class="form-group">
+										<label class="col-md-2  control-label">Longitud</label>
+										<div class="col-md-8 col-md-offset-1 ">
+											<input type="text" class="gllpLongitude form-control"
+												readonly id='localizacion_longitud'
+												name='localizacion_longitud' 
+												value='<?php echo $this->NegocioData->getLocalizacionLongitud() ?>' />
+										</div>
+
+
+									</div>
+
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+</section>

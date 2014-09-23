@@ -1,0 +1,144 @@
+
+<!-- Header contenido (Encabezado de página) -->
+<section class="content-header">
+    
+    <div class="pageicon">
+        <span class="glyphicon glyphicon-th"></span>
+    </div>
+    <div class="pagetitle">
+        <h5>empresas o negocios </h5>
+        <h1>Listado</h1>
+    </div>
+</section>
+
+<!-- Contenido principal -->
+<section id="main_content" class="content">
+    
+    <div class="row">
+    
+    
+    
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        
+          <div class="box widgetcontent_blue">
+            
+            <div class="box-header" >
+                <h4 class="box-title">Sus empresas o negocios </h4>
+            </div> 
+            
+            
+            <div class="box-body no-padding">
+    
+    
+    
+				<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Categoria</th>
+							<th>Localidad</th>
+							<th>Direccin</th>
+							<th>CSS grade</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="gradeX">
+							<td>Trident</td>
+							<td>
+								Internet
+								 Explorer 
+								4.0
+								</td>
+							<td>Win 95+</td>
+							<td class="center">4</td>
+							<td class="center">X</td>
+						</tr>
+						<tr class="gradeC">
+							<td>Trident</td>
+							<td>Internet
+								 Explorer 5.0</td>
+							<td>Win 95+</td>
+							<td class="center">5</td>
+							<td class="center">C</td>
+						</tr>
+						<tr class="gradeA">
+							<td>Trident</td>
+							<td>Internet
+								 Explorer 5.5</td>
+							<td>Win 95+</td>
+							<td class="center">5.5</td>
+							<td class="center">A</td>
+						</tr>
+						<tr class="gradeA">
+							<td>Trident</td>
+							<td>Internet
+								 Explorer 6</td>
+							<td>Win 98+</td>
+							<td class="center">6</td>
+							<td class="center">A</td>
+						</tr>
+						<tr class="gradeA">
+							<td>Trident</td>
+							<td>Internet Explorer 7</td>
+							<td>Win XP SP2+</td>
+							<td class="center">7</td>
+							<td class="center">A</td>
+						</tr>
+						
+						<tr class="gradeC">
+							<td>Misc</td>
+							<td>PSP browser</td>
+							<td>PSP</td>
+							<td class="center">-</td>
+							<td class="center">C</td>
+						</tr>
+						<tr class="gradeU">
+							<td>Other browsers</td>
+							<td>All others</td>
+							<td>-</td>
+							<td class="center">-</td>
+							<td class="center">U</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Rendering engine</th>
+							<th>Browser</th>
+							<th>Platform(s)</th>
+							<th>Engine version</th>
+							<th>CSS grade</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			</div>
+			</div>
+			</div>
+			
+			</section>
+			
+		
+		
+		
+		
+		
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$('.datatable').dataTable({
+				"sPaginationType": "bs_normal"
+			});	
+			$('.datatable').each(function(){
+				var datatable = $(this);
+				// SEARCH - Add the placeholder for Search and Turn this into in-line form control
+				var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+				search_input.attr('placeholder', 'Search');
+				search_input.addClass('form-control input-sm');
+				// LENGTH - Inline-Form control
+				var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+				length_sel.addClass('form-control input-sm');
+                datatable.bind('page', function(e){
+                    window.console && console.log('pagination event:', e) //this event must be fired whenever you paginate
+                });
+			});
+		});
+		</script>

@@ -1,0 +1,212 @@
+<style>
+a, a:hover, a:link, a:active, a:focus {
+    color: #0866c6;
+    outline: medium none;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+input, select, textarea, button {
+    font-family: "RobotoRegular","Helvetica Neue",Helvetica,sans-serif;
+    font-size: 13px;
+    outline: medium none;
+}
+strong {
+    font-weight: normal;
+}
+label, input, textarea, select, button {
+    font-size: 13px;
+}
+h1, h2, h3, h4, h5 {
+    font-weight: normal;
+    line-height: normal;
+}
+.mainwrapper {
+    background: url("../images/leftpanelbg.png") repeat-y scroll 0 0 rgba(0, 0, 0, 0);
+}
+.loginpanel {
+    height: 300px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+}
+.loginpanelinner {
+    left: -50%;
+    position: relative;
+    top: -150px;
+}
+.loginpanelinner .logo {
+    padding: 20px 0;
+    text-align: center;
+}
+.loginpanel .pull-right {
+    color: #ddd;
+    font-family: Helvetica,sans-serif;
+    font-size: 11px;
+    margin-top: 11px;
+}
+.loginpanel .pull-right a {
+    color: #ddd;
+}
+.inputwrapper input {
+    background: none repeat scroll 0 0 #fff;
+    border: 0 none;
+    padding: 10px;
+    width: 250px;
+}
+.inputwrapper input:active, .inputwrapper input:focus {
+    background: none repeat scroll 0 0 #fff;
+    border: 0 none;
+}
+.inputwrapper button {
+    background: none repeat scroll 0 0 #0972dd;
+    border: 1px solid #0c57a3;
+    color: #fff;
+    display: block;
+    padding: 10px;
+    text-transform: uppercase;
+    width: 100%;
+}
+.inputwrapper button:focus, .inputwrapper button:active, .inputwrapper button:hover {
+    background: none repeat scroll 0 0 #1e82e8;
+}
+.inputwrapper label {
+    color: rgba(255, 255, 255, 0.8);
+    display: inline-block;
+    font-size: 11px;
+    margin-top: 10px;
+    vertical-align: middle;
+}
+.inputwrapper label input {
+    margin: -3px 5px 0 0;
+    vertical-align: middle;
+    width: auto;
+}
+.inputwrapper .remember {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    padding: 0;
+}
+
+.loginfooter {
+    bottom: 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: arial,sans-serif !important;
+    font-size: 11px;
+    left: 0;
+    padding: 5px 0;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input, .input-append input, .input-prepend input, .input-append select, .input-prepend select, .input-append .uneditable-input, .input-prepend .uneditable-input, .input-append .dropdown-menu, .input-prepend .dropdown-menu, .input-append .popover, .input-prepend .popover, .btn-group > .btn, .btn-group > .dropdown-menu, .btn-group > .popover, .input-append .add-on, .input-prepend .add-on {
+    font-size: 13px;
+}
+.headmenu-label, .headmenu-icon, .headmenu .count, .leftmenu .nav-tabs a, .dropdown-menu a, .shortcuts li a, .userloggedinfo ul li a, .inputwrapper input, .inputwrapper button {
+    transition: all 0.2s ease-out 0s;
+}
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    border-radius: 0;
+    color: #555555;
+    display: inline-block;
+    line-height: 20px;
+    margin-bottom: 10px;
+    vertical-align: middle;
+}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input, .input-append input, .input-prepend input, .input-append select, .input-prepend select, .input-append .uneditable-input, .input-prepend .uneditable-input, .input-append .dropdown-menu, .input-prepend .dropdown-menu, .input-append .popover, .input-prepend .popover, .btn-group > .btn, .btn-group > .dropdown-menu, .btn-group > .popover, .input-append .add-on, .input-prepend .add-on {
+    font-size: 13px;
+}
+
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+   
+    $("#animate0").effect("bounce", { direction:'down', times:5 }, 300);
+    $("#animate1").effect("bounce", { direction:'down', times:5 }, 300);
+    $("#animate2").effect("bounce", { direction:'down', times:5 }, 300);
+    $("#animate3").effect("bounce", { direction:'down', times:5 }, 300);
+    $("#animate4").effect("bounceIn", { direction:'down', times:5 }, 300);
+    
+});
+</script>
+
+
+<div class="loginpanel">
+    <div class="loginpanelinner">
+        <div class="logo animate0 bounceIn">
+                <img src="<?php echo $this->basePath(); ?>/images/logo1.png" class="" alt="User Image" />
+        </div>
+        <form id="login"  method="post">
+<!--            <div class="inputwrapper login-alert">
+                <div class="alert alert-error">Invalid username or password</div>
+            </div>-->
+            <div class="inputwrapper animate1 bounceIn" id="animate1">
+               <input type="text" class="form-control" placeholder="Email" required 
+				   name='email'  id='email'
+					autofocus>
+            </div>
+            <div class="inputwrapper animate2 bounceIn" id="animate2">
+               <input type="password" class="form-control"  name='clave' id='clave'
+					placeholder="Password" required>
+            </div>
+            <div class="inputwrapper animate3 bounceIn" id="animate3">
+                <button type="submit" name="submit" id="sign_in">Sign In</button>
+            </div>
+            <div class="inputwrapper animate4 bounceIn" id="animate4">
+            
+                <div class="pull-right" id="not_member">
+                    <a href="<?php echo $this->url('login', array('action'=>'recuperarclave'));?>">
+                        No puedes iniciar sesi&oacute;n? 
+                    </a>
+                </div>
+                
+                <label id="signin">
+                    <span onclick="window.location.href = '<?php echo $this->url('login', array('action'=>'cuenta'));?>'">
+                        Crear una Cuenta
+				    </span>
+                </label>
+            </div>
+            
+        </form>
+    </div><!--loginpanelinner-->
+</div><!--loginpanel-->
+
+<div class="loginfooter">
+    <p>&copy; 2014. UGkamari Admin Template. All Rights Reserved.</p>
+</div>
+
+
+
+<!--<div class="row">
+	<div class="col-sm-6 col-md-4 col-md-offset-4">
+		<h1 class="text-center login-title">Bienvenido por favor ingrese sus datos </h1>
+		<div class="account-wall">
+			<img class="profile-img"
+				src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+				alt="">
+			<form class="form-signin" method="post">
+				<input type="text" class="form-control" placeholder="Email" required 
+				   name='email'  id='email'
+					autofocus> <input type="password" class="form-control"  name='clave' id='clave'
+					placeholder="Password" required>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Login
+					</button>
+				<label class="checkbox pull-left"> <span class="pull-left"> <a href="<?php echo $this->url('login', array('action'=>'cuenta'));?>">Crear una Cuenta
+				</a></span>
+				</label> <a href="<?php echo $this->url('login', array('action'=>'recuperarclave'));?>" class="pull-right need-help">No puedes iniciar sesi&oacute;n? </a><span
+					class="clearfix"></span>
+			</form>
+		</div>
+	</div>
+</div>-->

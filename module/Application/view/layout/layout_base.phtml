@@ -1,0 +1,45 @@
+<!--<!DOCTYPE html>-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> UGKAMARI.EDU.EC  </title>
+        <?php        
+            echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')?>
+        
+        <!-- Le styles -->
+        <?php        
+            echo $this->headLink(array(
+                'rel' => 'shortcut icon',
+                'type' => 'image/vnd.microsoft.icon',
+                'href' => $this->basePath() . '/img/favicon.ico'
+            ))
+            ->prependStylesheet($this->basePath() . '/css/style_sys.css')
+            ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+        ?> 
+        
+          
+       <!-- Scripts -->
+        <?php        
+        echo $this->headScript()                
+            ->appendFile($this->basePath() . '/js/jquery-ui-1.11.1/external/jquery/jquery.js')
+            ->appendFile($this->basePath() . '/js/jquery-ui-1.11.1/jquery-1.11.1.min.js')
+            ->appendFile($this->basePath() . '/js/bootstrap.min.js')       
+            ->appendFile($this->basePath() . '/js/validator/validator.min.js')
+        ?>
+        
+     </head>
+    
+     <body class="skin-blue"  style="background: none repeat scroll 0 0 #0866c6;">
+   
+       <div class="container">
+            <?php echo $this->content; ?>
+	</div>
+   
+        
+      
+      
+       
+    </body>
+</html>

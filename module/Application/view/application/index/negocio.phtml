@@ -1,0 +1,303 @@
+<style>    
+
+.venueScore {
+   border-radius: 34px;
+    color: #fff;
+    float: left;
+    font-size: 13px;
+    line-height: 34px;
+    margin-right: 10px;
+    min-width: 34px;
+    padding: 0;
+    text-align: center;
+    text-shadow: none;
+    width: auto;
+    background: none repeat scroll 0 0 #00b551; 
+} 
+
+
+.uinfo {
+    margin-top: 15px;
+    margin-left: 10px;
+}
+div.portfolio-item .box-title a{
+    margin-left: 40px;
+}
+.uinfo h5 {
+    color: #0866c6;
+    font-size: 14px;
+    margin-bottom: 10px;
+    line-height: normal;
+}
+.uinfo span.pos {
+    color: #666;
+    text-transform: uppercase;
+}
+.uinfo span {
+    color: #999;
+    display: block;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+
+div.portfolio-item .box-header {
+    background: url("<?php echo $this->basePath(); ?>/AdminLTE-master/img/recommendationBadge.png") no-repeat scroll left top #3a3c3f;
+    margin-top: 0px;
+    padding-top: 60px;
+}
+
+div.box-header h2 a{
+    color: white;
+    font-family: "Oswald","Arial",sans-serif;
+    font-size: 20px;
+}
+
+div.portfolio-item .box-header  .text{
+/*color: white;
+-ms-transform: rotate(316deg);  IE 9 
+-ms-transform-origin: 60% 80%;  IE 9 
+-webkit-transform: rotate(316deg);  Chrome, Safari, Opera 
+-webkit-transform-origin: 60% 80%;  Chrome, Safari, Opera 
+transform: rotate(316deg);
+transform-origin: 5% 15%;*/
+    background: none repeat scroll 0 0 white;
+       margin: -51px 80px 0 -10%;
+    position: relative;
+    transform: rotate(-40deg);
+    z-index: 200;
+}
+/*header h1 {
+    background: none repeat scroll 0 0 white;
+    margin: 20px 0 0 -10%;
+    position: relative;
+    transform: rotate(-4deg);
+    z-index: 200;
+}
+.backgroundclip header h1 span {
+    background: url("images/west.jpg") no-repeat scroll -100px -40px rgba(0, 0, 0, 0);
+}*/
+</style>
+
+<!-- Header contenido (Encabezado de página) -->
+<section class="content-header">
+    
+    <div class="pageicon">
+        <span class="fa fa-shopping-cart"></span>
+    </div>
+    <div class="pagetitle">
+        <h5>Productos</h5>
+        <h1>Listado Productos</h1>
+    </div>
+</section>
+
+
+
+<!-- Contenido principal -->
+<section class="content">
+    
+<!-- Subnav filters y search -->
+<div class="row">
+    <div class="col-md-6 col-sm-6  col-xs-12">  
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                        <div class="input-group-btn">
+                            <button style="padding: 9px 12px;" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                </div>
+            </form>
+    </div>
+    <div class="col-md-6 col-sm-6  col-xs-12" style="padding: 10px"> 
+       <div class="btn-toolbar" role="toolbar">
+           <div class="btn-group">
+               <button id="btn_oferta" class="btn btn-default btn" onclick="$('#btn_oferta').removeClass('btn-default btn').addClass('bg-yellow btn' );">
+                    <i class="glyphicon glyphicon-star"></i>&nbsp;
+                    <span>Oferta</span>  
+                </button>
+           </div>
+           <div class="btn-group">
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                Ubicacion
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Guayas</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Quito</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Machala</a></li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Mas opciones</a></li>
+              </ul>
+            </div>
+           </div>
+          
+        </div>
+    </div>
+</div>  
+<br>
+    
+    
+<div class="row">
+    <?php              
+    $limite = 4;
+    for($i=0;$i<$limite;$i++){?>
+        <div class="col-lg-3 col-xs-12 col-sm-6  col-md-4 "> 
+            <!-- Default box style="background: none repeat scroll 0 0 #fff; border-top: 2px solid #0866c6;"-->
+            <div class="box widgetcontent_blue portfolio-item" style="background: none repeat scroll 0 0 #fff;">
+                <div class="box-header">
+                    <div class="text">precio</div>
+                    <div class="box-tools pull-right" style="margin-top: -40px;">                            
+                        <span class="venueScore"><span>0.8</span></span>    
+                    </div>
+                    <h2 class="box-title box-title pull-right">  
+                        <a style="color: #fff;" href="<?php echo $this->url('user', array('action'=>'detalles'));?>">
+                            Empresa Inc.
+                        </a>
+                    </h2>
+                </div>
+                <div class="uinfo">
+                    <h5>Sony Xperia T2 Ultra 4g</h5>
+                    <span class="pos">Ubicado en Quito (Pichincha ( Quito ) </span>
+                    <span>04202013840 - 097845</span>
+                </div>
+                <a href="#">
+                    <img class="img-responsive" alt="" src="<?php echo $this->basePath(); ?>/AdminLTE-master/img/producto1.jpg" width="700" height="400">
+                </a>
+                <div class="box-footer" style="text-align: center">
+                    <a class="small-box-footer" href="#" >Mas info <i class="fa fa-arrow-circle-right"></i> </a>            
+                </div>
+            </div><!-- /.box -->
+        </div><!-- /.col --><?php
+    } ?>
+</div><!-- /.row -->
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-lg-3 col-xs-12 col-sm-6  col-md-4 ">
+                <!-- Default box -->
+                <div class="box box-warning">
+                    <div class="box-header specialInfo" style="background: none repeat scroll 0 0 #fff4d8;">
+                        <h3 class="box-title" style="color: #2d5be3; font-weight: bold; line-height: 21px;"> Admin, Inc.</h3>
+                        <div class="box-tools pull-right">                            
+                            <span class="venueScore bg-yellow"><span>9.0</span></span>    
+                        </div>
+                    </div>
+                    <div style="padding-left: 10px ;line-height: 1.42857; background: none repeat scroll 0 0 #fff4d8;  color: #aeb4b6;">
+                        <span class="tipText" data-fulltext="" style="max-height: 32px;">                    
+                          Muelle Malecon Simon Bolivar Guayaquil
+                        </span>
+                        <strong><br>Telefono : 09784512369</strong>
+                    </div>
+                    <div class="box-body specialInfo">
+                        <a href="#" class="thumbnail specialInfo">
+                             <img  src="<?php echo $this->basePath(); ?>/AdminLTE-master/img/lo_nuestro.jpg" alt="125x125"/>
+                        </a>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer" style="text-align: center">
+                        <a class="small-box-footer" href="#">
+                            More info <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div><!-- /.box-footer-->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+            
+            <div class="col-lg-3 col-xs-12 col-sm-6  col-md-4 ">
+                <!-- Default box -->
+                <div class="box box-warning">
+                    <div class="box-header specialInfo" style="background: none repeat scroll 0 0 #fff4d8;">
+                        <h3 class="box-title" style="color: #2d5be3; font-weight: bold; line-height: 21px;"> Admin, Inc.</h3>
+                        <div class="box-tools pull-right" style="padding-top: 0;padding-right: 0">                                                       
+                            <img src="<?php echo $this->basePath(); ?>/AdminLTE-master/img/special-banner1.png" alt=""/>
+                            
+                        </div>
+                    </div>
+                    <div style="padding-left: 10px ;line-height: 1.42857; background: none repeat scroll 0 0 #fff4d8;  color: #aeb4b6;">
+                        <span class="tipText" data-fulltext="" style="max-height: 32px;">                    
+                          Muelle Malecon Simon Bolivar Guayaquil
+                        </span>
+                        <strong><br>Telefono : 09784512369</strong>
+                    </div>
+                    <div class="box-body specialInfo">
+                        <a href="#" class="thumbnail specialInfo">
+                             <img  src="<?php echo $this->basePath(); ?>/AdminLTE-master/img/lo_nuestro.jpg" alt="125x125"/>
+                        </a>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer" style="text-align: center">
+                        <a class="small-box-footer" href="#">
+                            More info <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div><!-- /.box-footer-->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+            
+            <div class="col-lg-3 col-xs-12 col-sm-6  col-md-4 ">
+                <!-- Default box -->
+                <div class="box box-warning">
+                    <div class="box-header specialInfo" style="background: none repeat scroll 0 0 #fff4d8;">
+                        <h3 class="box-title" style="color: #2d5be3; font-weight: bold; line-height: 21px;"> Admin, Inc.</h3>
+                        <div class="box-tools pull-right">                            
+                            <span class="venueScore bg-yellow"><span>9.0</span></span>    
+                        </div>
+                    </div>
+                    <div style="padding-left: 10px ;line-height: 1.42857; background: none repeat scroll 0 0 #fff4d8;  color: #aeb4b6;">
+                        <span class="tipText" data-fulltext="" style="max-height: 32px;">                    
+                          Muelle Malecon Simon Bolivar Guayaquil
+                        </span>
+                        <strong><br>Telefono : 09784512369</strong>
+                    </div>
+                    <div class="box-body specialInfo">
+                        <a href="#" class="thumbnail specialInfo">
+                             <img  src="<?php echo $this->basePath(); ?>/AdminLTE-master/img/lo_nuestro.jpg" alt="125x125"/>
+                        </a>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer" style="text-align: center">
+                        <a class="small-box-footer" href="#">
+                            More info <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div><!-- /.box-footer-->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+            
+            <div class="col-lg-3 col-xs-12 col-sm-6  col-md-4 ">
+                <!-- Default box -->
+                <div class="box box-warning">
+                    <div class="box-header specialInfo" style="background: none repeat scroll 0 0 #fff4d8;">
+                        <h3 class="box-title" style="color: #2d5be3; font-weight: bold; line-height: 21px;"> Admin, Inc.</h3>
+                        <div class="box-tools pull-right">                            
+                            <span class="venueScore bg-yellow"><span>9.0</span></span>    
+                        </div>
+                    </div>
+                    <div style="padding-left: 10px ;line-height: 1.42857; background: none repeat scroll 0 0 #fff4d8;  color: #aeb4b6;">
+                        <span class="tipText" data-fulltext="" style="max-height: 32px;">                    
+                          Muelle Malecon Simon Bolivar Guayaquil
+                        </span>
+                        <strong><br>Telefono : 09784512369</strong>
+                    </div>
+                    <div class="box-body specialInfo">
+                        <a href="#" class="thumbnail specialInfo">
+                             <img  src="<?php echo $this->basePath(); ?>/AdminLTE-master/img/lo_nuestro.jpg" alt="125x125"/>
+                        </a>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer" style="text-align: center">
+                        <a class="small-box-footer" href="#">
+                            More info <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div><!-- /.box-footer-->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+            
+            
+            
+        </div><!-- /.row -->
+
+      
+
+
+      
+</section>
+

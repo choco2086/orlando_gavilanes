@@ -1,0 +1,45 @@
+/* Default - screens over 767px wide */
+
+
+/* Mobile Landscape small SM*/
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .padding_sm {
+        padding-top: 30px;
+    }
+}
+
+
+/* correcciones en Medium MD */
+@media only screen and (min-width: 641px) and (max-width: 1023px) {
+/*
+.contain-to-grid .top-bar,.row{
+	max-width:825px;
+}*/
+    .padding_md {
+        padding-top: 30px;
+    }
+
+}
+
+
+/* correcciones en Large LG */
+@media only screen and (min-width: 1024px) {
+    /* Menu */
+    .padding_lg {
+        padding-top: 30px;
+    }
+
+}
+
+/* Mobile portrait XS  */
+@media only screen and (max-width: 640px) {
+    .padding_sm {
+        padding-top: 10px;
+    }
+    
+    .icon {
+        display: inline !important;
+    }
+
+}
+	
